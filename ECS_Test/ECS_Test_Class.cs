@@ -44,5 +44,10 @@ namespace ECS_Test
             log.WriteLogLine(input);
             Assert.That(log.input, Is.EqualTo(input));
         }
+
+        public static void Main()
+        {
+
+        }
     }
 }
