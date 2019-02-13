@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using ECS.Refactored.Heater;
 using ECS.Refactored.Logger;
 using ECS.Refactored.Random;
 using ECS.Refactored.TempSensor;
@@ -20,6 +21,7 @@ namespace ECS_Test
         private TempSensor _temp;
         private IRandom rand;
         private ILogger log;
+        private IHeater heat;
 
         [TestCase(10, 10)]
         [TestCase(5, 10)]
@@ -45,9 +47,31 @@ namespace ECS_Test
             Assert.That(log.input, Is.EqualTo(input));
         }
 
-        public static void Main()
+        [TestCase(5)]
+        [TestCase(10)]
+        public void HeaterOnNTimes(int n)
         {
+            heat = new FakeHeater();
+            for (int i = 0; i < n; i++)
+            {
+                heat.TurnOn();
+            }
 
+            Assert.That(heat.TurnOnCalledTimes, Is.EqualTo(n));
         }
+
+        [TestCase(5)]
+        [TestCase(10)]
+        public void HeaterOffNTimes(int n)
+        {
+            heat = new FakeHeater();
+            for (int i = 0; i < n; i++)
+            {
+                heat.TurnOff();
+            }
+
+            Assert.That(heat.TurnOffCalledTimes, Is.EqualTo(n));
+        }
+       
     }
 }
