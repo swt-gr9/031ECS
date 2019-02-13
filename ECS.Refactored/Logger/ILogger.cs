@@ -6,6 +6,7 @@ namespace ECS.Refactored.Logger
 {
     public interface ILogger
     {
-       void WriteLogLine(string text);
+        string input { get; set; }
+        void WriteLogLine(string text);
     }
 }
